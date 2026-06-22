@@ -96,9 +96,115 @@ td:not(:first-child), th:not(:first-child) { text-align:right; }
   .section-title { margin-bottom: 8px; }
   .footer { margin-top: 12px; padding-top: 8px; }
 }
+
+#login-screen{
+    position:fixed;
+    inset:0;
+    background:linear-gradient(135deg,#041E42,#073B73);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:999999;
+}
+
+.login-card{
+    width:420px;
+    background:white;
+    padding:40px;
+    border-radius:22px;
+    text-align:center;
+    box-shadow:0 20px 50px rgba(0,0,0,.35);
+    border:1px solid #D9E4EF;
+}
+
+.login-brand{
+    width:54px;
+    height:54px;
+    margin:0 auto 18px;
+    border-radius:16px;
+    background:linear-gradient(135deg,#041E42,#2E7DBD);
+    color:white;
+    display:grid;
+    place-items:center;
+    font-weight:900;
+    font-size:24px;
+}
+
+.login-card h2{
+    color:#041E42;
+    margin:0 0 12px;
+    font-size:26px;
+}
+
+.login-card p{
+    color:#5C6F8B;
+    line-height:1.45;
+    margin:0;
+}
+
+.login-card input{
+    width:100%;
+    padding:14px;
+    margin-top:22px;
+    border:1px solid #D9E4EF;
+    border-radius:10px;
+    outline:none;
+    font-size:14px;
+}
+
+.login-card input:focus{
+    border-color:#2E7DBD;
+    box-shadow:0 0 0 3px rgba(46,125,189,.12);
+}
+
+.login-card button{
+    width:100%;
+    margin-top:15px;
+    padding:14px;
+    border:none;
+    border-radius:10px;
+    background:#2E7DBD;
+    color:white;
+    font-weight:800;
+    cursor:pointer;
+    font-size:14px;
+}
+
+.login-card button:hover{
+    background:#041E42;
+}
+
+#error-message{
+    color:#D94141;
+    margin-top:12px;
+    font-size:13px;
+    font-weight:700;
+}
+
 </style>
 </head>
 <body>
+
+<div id="login-screen">
+  <div class="login-card">
+    <div class="login-brand">C</div>
+    <h2>🔒 Acesso Restrito</h2>
+    <p>Informe a senha para acessar o painel executivo de suporte.</p>
+
+    <input
+      type="password"
+      id="password"
+      placeholder="Digite a senha"
+      onkeypress="if(event.key==='Enter') validatePassword()">
+
+    <button onclick="validatePassword()">Entrar</button>
+
+    <p id="error-message"></p>
+  </div>
+</div>
+
+<div id="protected-content" style="display:none;">
+
 <header class="header"><div class="header-inner"><div class="logo"><div class="logo-mark">C</div><div>Compliance<span style="color:var(--green)">Metrics</span></div></div><div class="actions"><button onclick="window.print()">Exportar PDF</button></div></div></header>
 <main class="container">
 <section class="hero">
@@ -223,5 +329,23 @@ td:not(:first-child), th:not(:first-child) { text-align:right; }
 </section>
 <div class="footer"><span>ComplianceMetrics • Suporte • Abril x Maio/2026</span><span>Gerado em 07/06/2026</span></div>
 </main>
+
+</div>
+
+<script>
+const PASSWORD = "Compliance2026!";
+
+function validatePassword(){
+    const password = document.getElementById("password").value;
+
+    if(password === PASSWORD){
+        document.getElementById("login-screen").style.display = "none";
+        document.getElementById("protected-content").style.display = "block";
+    }else{
+        document.getElementById("error-message").innerText = "Senha inválida.";
+    }
+}
+</script>
+
 </body>
 </html>
